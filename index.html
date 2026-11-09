@@ -23,7 +23,7 @@
 <meta property="og:description" content="Two hearts, one beautiful journey. Join us on 23 November 2026 to celebrate our special day!">
 <meta property="og:url" content="https://piyaa-ai.github.io/Invitation-Card/">
 <!-- IMPORTANT: Ensure this image exists at this exact path -->
-<meta property="og:image" content="https://piyaa-ai.github.io/Invitation-Card/asset/seo-image.png">
+<meta property="og:image" content="https://piyaa-ai.github.io/Invitation-Card/seo-image.png">
 <meta property="og:image:secure_url" content="https://piyaa-ai.github.io/Invitation-Card/seo-image.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
@@ -184,24 +184,75 @@ section{padding-block:64px;text-align:center}
 .scratch-card .card-label{font-family:var(--f-caps);letter-spacing:.28em;text-transform:uppercase;font-size:.68rem;color:var(--ink)}
 .scratch-card .card-hint{font-family:var(--f-caps);letter-spacing:.22em;font-size:.6rem;color:var(--muted);margin-top:2px}
 
-.scratch-box{
-  position:relative;
-  width:100%;
-  aspect-ratio:3/4;
-  max-width:140px;
-  border-radius:18px;
-  overflow:hidden;
-  background:linear-gradient(180deg,#FDF5F0 0%, #FAEBE6 100%);
-  box-shadow:0 10px 28px -14px rgba(158,90,87,.35), inset 0 0 0 1px rgba(231,211,168,.6);
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .25s ease, box-shadow .25s ease
+/* ✅ FIX: Scratch card text overflow on mobile */
+.scratch-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  max-width: 140px;
+  border-radius: clamp(10px, 4vw, 18px);
+  overflow: hidden; /* ← KEY FIX: clips content inside the rounded box */
+  background: linear-gradient(180deg, #FDF5F0 0%, #FAEBE6 100%);
+  box-shadow: 0 10px 28px -14px rgba(158,90,87,.35), inset 0 0 0 1px rgba(231,211,168,.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .25s ease, box-shadow .25s ease;
 }
 
-.scratch-box .reveal-value{font-family:var(--f-script);font-size:clamp(1.8rem,6vw,2.4rem);color:var(--rose-deep);line-height:1;
-  text-align:center;padding:8px;user-select:none;pointer-events:none}
-.scratch-box .reveal-value.month{font-size:clamp(1.2rem,4vw,1.5rem);font-family:var(--f-body);font-style:italic;letter-spacing:.04em}
-.scratch-box .reveal-value.year{font-family:var(--f-body);font-size:clamp(1.4rem,5vw,1.8rem);font-weight:500}
+/* ✅ FIX: November text sizing & wrapping */
+.scratch-box .reveal-value {
+  font-family: var(--f-script);
+  font-size: clamp(1.3rem, 5.5vw, 2.4rem); /* ← reduced min size */
+  color: var(--rose-deep);
+  line-height: 1.1; /* ← tighter line height */
+  text-align: center;
+  padding: 6px 4px; /* ← added horizontal padding */
+  user-select: none;
+  pointer-events: none;
+  word-break: break-word; /* ← prevents overflow */
+  max-width: 90%; /* ← keeps text inside card */
+}
 
+.scratch-box .reveal-value.month {
+  font-size: clamp(1rem, 4.2vw, 1.5rem); /* ← smaller for "November" */
+  font-family: var(--f-body);
+  font-style: italic;
+  letter-spacing: .02em; /* ← reduced spacing */
+  line-height: 1.2;
+}
+
+.scratch-box .reveal-value.year {
+  font-family: var(--f-body);
+  font-size: clamp(1.2rem, 5vw, 1.8rem);
+  font-weight: 500;
+}
+
+/* ✅ FIX: Extra small phones (iPhone SE, etc.) */
+@media (max-width: 360px) {
+  .scratch-trio {
+    gap: 6px;
+  }
+  
+  .scratch-box .reveal-value.month {
+    font-size: 0.9rem; /* ← even smaller on tiny screens */
+    letter-spacing: 0;
+  }
+  
+  .scratch-box .reveal-value {
+    font-size: clamp(1.1rem, 5vw, 1.8rem);
+  }
+  
+  .scratch-card .card-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+  }
+  
+  .scratch-card .card-hint {
+    font-size: 0.48rem;
+    letter-spacing: 0.05em;
+  }
+}
 .scratch-box canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;transition:opacity .7s ease}
 .scratch-box canvas.done{opacity:0;pointer-events:none}
 
@@ -714,7 +765,7 @@ section{padding-block:64px;text-align:center}
       </div>
       <div class="closing-families">Alhat Family &amp; Thakore Family</div>
       <h3 class="script" style="font-size:2.4rem">Archana &amp; Neville</h3>
-      <div class="scene-frame" data-scene></div>
+      <div class="scene-frame" data-scene></div> 
       <div class="contacts">
         <div class="ct-lbl">For any queries, please contact</div>
         <div class="ct-row">
